@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AppComunicaTe</string>
+    <string name="news_tittle">Noticias y circulares</string>
+    <string name="news_description">Aquí puedes ver las noticias y circulares</string>
 </resources>
