@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Principal">
+        <menu>
+        <item
+            android:id="@+id/info_general"
+            android:icon="@drawable/ic_info_general"
+            android:title="información general">
+        </item>
+
+            <item
+                android:id="@+id/circular"
+                android:icon="@drawable/ic_circular"
+                android:title="circular">
+            </item>
+
+            <item
+                android:id="@+id/calendario"
+                android:icon="@drawable/ic_calendario"
+                android:title="calendario">
+            </item>
+
+            <item
+                android:id="@+id/solicitud_cita"
+                android:icon="@drawable/ic_solicitud_cita"
+                android:title="solicitud de citas">
+            </item>
+
+            <item
+                android:id="@+id/cerrar_sesion"
+                android:icon="@drawable/ic_cerrar_sesion"
+                android:title="cerrar sesión">
+            </item>
+
+        </menu>
+    </item>
+</menu>
