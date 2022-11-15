@@ -2,4 +2,7 @@
     <string name="app_name">AppComunicaTe</string>
     <string name="news_tittle">Noticias y circulares</string>
     <string name="news_description">Aquí puedes ver las noticias y circulares</string>
+    <string name="information_tittle">Información y contacto</string>
+    <string name="next_activity">Siguiente activity</string>
+    <string name="information_content">Somos una institución educativa de alto impacto en el crecimiento de sus hijos y creemos que el bienestar está en las infinitas posibilidades que su hijo tiene en el futuro</string>
 </resources>

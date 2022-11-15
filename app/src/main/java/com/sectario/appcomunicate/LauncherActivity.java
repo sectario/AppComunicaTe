@@ -21,7 +21,7 @@ public class LauncherActivity extends AppCompatActivity {
         Timer timer = new Timer("timer");
         Intent i = new Intent(this, MainActivity.class);
 
-        Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).setGravity(Gravity.CENTER,0,0);
+        Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show();
 
         TimerTask task = new TimerTask() {
             @Override

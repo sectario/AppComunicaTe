@@ -10,14 +10,24 @@ import androidx.appcompat.app.AppCompatActivity;
 public class InformationActivity extends AppCompatActivity {
 
 
-    Button btnIr;
+    Button buttonNextActiviTy2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
 
-        btnIr = findViewById(R.id.BtnIR);
+        buttonNextActiviTy2 = findViewById(R.id.buttonNextActiviTy2);
+
+
+        Intent i = new Intent(this, MainActivity.class);
+        buttonNextActiviTy2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(i);
+            }
+        });
+
 
 
 
