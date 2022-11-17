@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         lsNews.setAdapter(adapter);
 
-        Intent i = new Intent(this, InformationActivity.class);
+        Intent i = new Intent(this, Login.class);
         buttonNextActiviTy.setOnClickListener(view -> startActivity(i));
 
     }
