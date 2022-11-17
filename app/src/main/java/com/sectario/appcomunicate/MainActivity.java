@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList news = new ArrayList();
 
+
         news.add("juan");
         news.add("juan");
         news.add("juan");
@@ -41,12 +42,7 @@ public class MainActivity extends AppCompatActivity {
         lsNews.setAdapter(adapter);
 
         Intent i = new Intent(this, InformationActivity.class);
-        buttonNextActiviTy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(i);
-            }
-        });
+        buttonNextActiviTy.setOnClickListener(view -> startActivity(i));
 
     }
 }

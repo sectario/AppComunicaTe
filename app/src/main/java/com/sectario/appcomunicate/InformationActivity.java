@@ -20,13 +20,8 @@ public class InformationActivity extends AppCompatActivity {
         buttonNextActiviTy2 = findViewById(R.id.buttonNextActiviTy2);
 
 
-        Intent i = new Intent(this, MainActivity.class);
-        buttonNextActiviTy2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(i);
-            }
-        });
+        Intent i = new Intent(this, Calendar.class);
+        buttonNextActiviTy2.setOnClickListener(view -> startActivity(i));
 
 
 
