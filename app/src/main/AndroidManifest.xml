@@ -13,6 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppComunicaTe"
         tools:targetApi="31">
+
+        <activity
+            android:name=".Register"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Login"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".LauncherActivity"
             android:exported="true">
