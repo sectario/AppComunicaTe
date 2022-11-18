@@ -36,6 +36,9 @@ private void Drawer_Constant(){
     drawerLayout.addDrawerListener(actionBarDrawerToggle);
     actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
     actionBarDrawerToggle.syncState();
+
+
+
 }
 
 }
