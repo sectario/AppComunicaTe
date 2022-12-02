@@ -121,7 +121,7 @@ public class SolicituddeCitas extends AppCompatActivity {
 
         Map<String,Object> cita=new HashMap<>();
 
-
+        cita.put("Id",edtxId.getText().toString());
         cita.put("tiposolicitud",combo_tiposolicitud.getSelectedItem().toString());
         cita.put("nombresyapellidos",edtxPersonName.getText().toString());
         cita.put("fechasolicitud",tvfecha.getText().toString());
@@ -195,6 +195,7 @@ public class SolicituddeCitas extends AppCompatActivity {
         dpd.show();
 
     }
+
 
     public void seleccionarHora(View view) {
         Calendar c = Calendar.getInstance();
