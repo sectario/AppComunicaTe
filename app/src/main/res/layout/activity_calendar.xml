@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.692" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView1"
         android:layout_width="197dp"
         android:layout_height="63dp"
         android:fontFamily="sans-serif"

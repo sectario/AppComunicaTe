@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "883309284495",
+    "firebase_url": "https://appcomunicate-4d969-default-rtdb.firebaseio.com",
+    "project_id": "appcomunicate-4d969",
+    "storage_bucket": "appcomunicate-4d969.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:883309284495:android:d1e353a9d45516844bf4fa",
+        "android_client_info": {
+          "package_name": "com.sectario.appcomunicate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "883309284495-6l7sb0rt4j02bet56u96v9fng347841k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sectario.appcomunicate",
+            "certificate_hash": "865cd10d1285e19163d1c0f5504de7b4e01cbdbd"
+          }
+        },
+        {
+          "client_id": "883309284495-e7igsugnad8ivm0h3u4opcn34ajbdqor.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXn4UxVTQrY8QIWBmlDPb9DEjONkZ-b_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "883309284495-e7igsugnad8ivm0h3u4opcn34ajbdqor.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

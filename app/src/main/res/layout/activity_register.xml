@@ -25,14 +25,14 @@
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="193dp"
-        android:layout_height="126dp"
+        android:layout_width="408dp"
+        android:layout_height="176dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.973"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/model1" />
 
     <EditText
@@ -50,7 +50,7 @@
         app:layout_constraintVertical_bias="0.613" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/edtxPersonName"
         android:layout_width="382dp"
         android:layout_height="53dp"
         android:ems="10"
@@ -92,7 +92,7 @@
         app:layout_constraintVertical_bias="0.519" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Por favor ingrese la siguiente información:"

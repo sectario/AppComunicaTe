@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="combo_tiposolicitud">
+        <item>Tipo de Solicitud</item>
+        <item>Certificaciones</item>
+        <item>Asesorias</item>
+        <item>Matricula</item>
+
+    </string-array>
+
+</resources>
