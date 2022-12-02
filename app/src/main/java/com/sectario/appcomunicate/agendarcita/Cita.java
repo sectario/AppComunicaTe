@@ -4,16 +4,26 @@ import android.widget.SpinnerAdapter;
 
 public class Cita {
 
+    private int id;
     private String nombresyapellidos;
     private String tiposolicitud;
     private String fechasolicitud;
     private String horasolicitud;
 
-    public Cita(String nombresyapellidos, String tiposolicitud, String fechasolicitud, String horasolicitud) {
+    public Cita(int id, String nombresyapellidos, String tiposolicitud, String fechasolicitud, String horasolicitud) {
+        this.id = id;
         this.nombresyapellidos = nombresyapellidos;
         this.tiposolicitud = tiposolicitud;
         this.fechasolicitud = fechasolicitud;
         this.horasolicitud = horasolicitud;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombresyapellidos() {

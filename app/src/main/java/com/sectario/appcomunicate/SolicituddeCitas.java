@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -18,12 +20,23 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.sectario.appcomunicate.agendarcita.Cita;
 import com.sectario.appcomunicate.interfaz.Citaapi;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 
 import retrofit2.Call;
@@ -34,15 +47,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SolicituddeCitas extends AppCompatActivity {
 
-    Spinner combo_tiposolicitud;
-    EditText edtxPersonName;
-    TextView tvfecha;
-    TextView tvhora;
     Button btnAgendarCita;
     Button btnCancelarCita;
     Button btnConsultarCita;
+    Spinner combo_tiposolicitud;
+    EditText edtxId;
+    EditText edtxPersonName;
+    TextView tvfecha;
+    TextView tvhora;
     ImageView ivprevius;
     ImageView ivnext;
+    ImageButton ibtninformacion;
+
+    //FirebaseAuth auth =FirebaseAuth.getInstance();
+
+    FirebaseFirestore mfirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +73,17 @@ public class SolicituddeCitas extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.combo_tiposolicitud, android.R.layout.simple_spinner_item);
         combo_tiposolicitud.setAdapter(adapter);
 
-        edtxPersonName = findViewById(R.id.edtxPersonName);
-        tvfecha = findViewById(R.id.tvfecha);
-        tvhora = findViewById(R.id.tvhora);
         btnAgendarCita = findViewById(R.id.btnAgendarCita);
         btnCancelarCita = findViewById(R.id.btnCancelarCita);
         btnConsultarCita = findViewById(R.id.btnConsultarCita);
+        edtxId = findViewById(R.id.edtxId);
+        edtxPersonName = findViewById(R.id.edtxPersonName);
+        tvfecha = findViewById(R.id.tvfecha);
+        tvhora = findViewById(R.id.tvhora);
         ivprevius = findViewById(R.id.ivprevius);
         ivnext = findViewById(R.id.ivnext);
+        ibtninformacion = findViewById(R.id.ibtninformacion);
+        mfirestore= FirebaseFirestore.getInstance();
 
         Intent i = new Intent(this, InformationActivity.class);
         ivprevius.setOnClickListener(view -> startActivity(i));
@@ -69,139 +91,89 @@ public class SolicituddeCitas extends AppCompatActivity {
         Intent in = new Intent(this, Calendar.class);
         ivnext.setOnClickListener(view -> startActivity(i));
 
+        Intent im = new Intent(this, InformationActivity.class);
+        ibtninformacion.setOnClickListener(view -> startActivity(i));
+
 
         btnAgendarCita.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id= edtxPersonName.getText().toString();
-                String tiposolicitud = combo_tiposolicitud.getSelectedItem().toString();
-                String nombresyapellidos = edtxPersonName.getText().toString();
-                String fechasolicitud = tvfecha.getText().toString();
-                String horasolicitud = tvhora.getText().toString();
-                Cita c= new Cita(nombresyapellidos,tiposolicitud, fechasolicitud,horasolicitud);
-                agendarcita(c);
+                agendar();
             }
 
         });
         btnConsultarCita.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buscarPorId(Integer.parseInt(edtxPersonName.getText().toString()));
+                Consultar();
 
             }
         });
         btnCancelarCita.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                eliminar(Integer.parseInt(edtxPersonName.getText().toString()));
+                cancelar();
             }
         });
     }
 
-    public void agendarcita(Cita c){
+    public void agendar(){
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://appcomunicate-4d969-default-rtdb.firebaseio.com/").addConverterFactory(GsonConverterFactory.create()).build();
-        Citaapi citaapi = retrofit.create(Citaapi.class);
-        Call<Cita> call = citaapi.save(c);
-
-        call.enqueue(new Callback<Cita>() {
-            @Override
-            public void onResponse(Call<Cita> call, Response<Cita> response) {
-
-                try {
-                    if (response.isSuccessful()) {
-
-                        Toast.makeText(SolicituddeCitas.this, "Cita Agendada", Toast.LENGTH_SHORT).show();
-                        limpiarCampos();
-
-                    }
-                }
-                catch (Exception e){
-
-                    Toast.makeText(SolicituddeCitas.this, "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+        Map<String,Object> cita=new HashMap<>();
 
 
-            }
-
-            @Override
-            public void onFailure(Call<Cita> call, Throwable t) {
-                Toast.makeText(SolicituddeCitas.this, "No conecta servicio", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    public void buscarPorId(Integer id) {
-
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://150.136.144.25:8080/adoptacan/").addConverterFactory(GsonConverterFactory.create()).build();
-
-        Citaapi citaapi = retrofit.create(Citaapi.class);
-        Call<Cita> call = citaapi.find(id);
-        call.enqueue(new Callback<Cita>() {
-            @Override
-            public void onResponse(Call<Cita> call, Response<Cita> response) {
-
-                try {
-                    if (response.isSuccessful()) {
-                        Cita cita = response.body();
-                        edtxPersonName.setText(cita.getNombresyapellidos());
-                        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(SolicituddeCitas.this,R.array.combo_tiposolicitud, android.R.layout.simple_spinner_item);
-                        combo_tiposolicitud.setAdapter(adapter);
-                        tvfecha.setText(cita.getFechasolicitud());
-                        tvhora.setText(cita.getHorasolicitud());
-
-                    }
-                } catch (Exception e) {
-
-                    Toast.makeText(SolicituddeCitas.this, "No hay cita agendada", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Cita> call, Throwable t) {
-
-            }
-        });
-    }
-
-    public void eliminar(Integer id) {
-
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://150.136.144.25:8080/adoptacan/").addConverterFactory(GsonConverterFactory.create()).build();
-
-        Citaapi citaapi = retrofit.create(Citaapi.class);
-        Call<Void> call = citaapi.delete(id);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-
-                try {
-                    if (response.isSuccessful()) {
-
-                        Toast.makeText(SolicituddeCitas.this, "Cita Eliminada", Toast.LENGTH_SHORT).show();
-                        limpiarCampos();
-
-                    }
-                } catch (Exception e) {
-
-                    Toast.makeText(SolicituddeCitas.this, "No se encontro cita agendada", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-
-            }
-        });
-    }
+        cita.put("tiposolicitud",combo_tiposolicitud.getSelectedItem().toString());
+        cita.put("nombresyapellidos",edtxPersonName.getText().toString());
+        cita.put("fechasolicitud",tvfecha.getText().toString());
+        cita.put("horasolicitud",tvhora.getText().toString());
 
 
-    public void limpiarCampos(){
+        mfirestore.collection("Solicitudcitas").document(edtxId.getText().toString()).set(cita);
 
+        edtxId.setText("");
         edtxPersonName.setText("");
-        combo_tiposolicitud.setAdapter(null);
         tvfecha.setText("");
         tvhora.setText("");
 
+    }
+
+    public void Consultar() {
+
+        Map<String, Object> cita = new HashMap<>();
+
+
+        // Create a reference to the cities collection
+        CollectionReference citaRef = mfirestore.collection("Solicitudcitas");
+
+        // Create a query against the collection.
+        Query query = citaRef.whereEqualTo("Id", edtxId.getText().toString());
+
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+
+                        edtxPersonName.setText(document.getData().get("nombresyapellidos") + "");
+                        tvfecha.setText(document.getData().get("fechasolicitud") + "");
+                        tvhora.setText(document.getData().get("horasolicitud") + "");
+                        Log.d("consultando", document.getId() + " => " + document.getData().get("nombreyapellido"));
+
+                    }
+                } else {
+                    Log.d("consultando", "Error getting documents: ", task.getException());
+                }
+            }
+        });
+
+    }
+
+    public void cancelar(){
+
+        mfirestore.collection("Solicitudcitas").document(edtxId.getText().toString()).delete();
+
+        edtxId.setText("");
     }
 
     public void seleccionarFecha(View view) {
@@ -238,9 +210,6 @@ public class SolicituddeCitas extends AppCompatActivity {
         },0, 0,false);tmd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.rgb(229,168,123)));
         tmd.show();
     }
-
-
-
 }
 
 
