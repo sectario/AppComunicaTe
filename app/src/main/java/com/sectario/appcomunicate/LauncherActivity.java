@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -19,7 +20,7 @@ public class LauncherActivity extends AppCompatActivity {
 
         Long delay = 5000l;
         Timer timer = new Timer("timer");
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, Login.class);
 
         Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show();
 

@@ -68,8 +68,10 @@ public class SolicituddeCitas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solicitudde_citas);
 
+        //spiner
         combo_tiposolicitud = findViewById(R.id.idSpinnerTiposolicitud);
 
+        //adaptador del spiner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.combo_tiposolicitud, android.R.layout.simple_spinner_item);
         combo_tiposolicitud.setAdapter(adapter);
 
@@ -134,7 +136,7 @@ public class SolicituddeCitas extends AppCompatActivity {
         edtxPersonName.setText("");
         tvfecha.setText("");
         tvhora.setText("");
-
+        combo_tiposolicitud.setSelection(0);
     }
 
     public void Consultar() {
@@ -182,6 +184,8 @@ public class SolicituddeCitas extends AppCompatActivity {
         int anio = cal.get(java.util.Calendar.YEAR);
         int mes = cal.get(java.util.Calendar.MONTH);
         int dia = cal.get(java.util.Calendar.DAY_OF_MONTH);
+
+
 
         DatePickerDialog dpd = new DatePickerDialog(SolicituddeCitas.this, R.style.DialogTheme,new DatePickerDialog.OnDateSetListener() {
             @Override
