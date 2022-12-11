@@ -20,7 +20,7 @@ public class LauncherActivity extends AppCompatActivity {
 
         Long delay = 5000l;
         Timer timer = new Timer("timer");
-        Intent i = new Intent(this, Notification.class);
+        Intent i = new Intent(this, Login.class);
 
         Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show();
 

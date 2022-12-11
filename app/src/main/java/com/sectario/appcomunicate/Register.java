@@ -38,7 +38,7 @@ public class Register extends AppCompatActivity {
         editTextTextPassword = findViewById(R.id.editTextTextPassword);
         btnRegistrarse2 = findViewById(R.id.btnRegistrarse2);
 
-        Intent i = new Intent(this, Login.class);
+        Intent i = new Intent(this, SolicituddeCitas.class);
 
         btnRegistrarse2.setOnClickListener(new View.OnClickListener() {
             @Override
